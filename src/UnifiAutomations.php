@@ -126,10 +126,10 @@ class UnifiAutomations
 
             $this->unifi->updateNetworkDns(
                 $network->id,
-                $newIps[0],
-                $newIps[1],
-                $newIps[2],
-                $newIps[3]
+                $newIps[0] ?? "",
+                $newIps[1] ?? "",
+                $newIps[2] ?? "",
+                $newIps[3] ?? ""
             );
         }
 
