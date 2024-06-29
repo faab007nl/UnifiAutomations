@@ -116,10 +116,10 @@ class Unifi
             $this->networks[] = new UnifiNetwork(
                 $network->_id,
                 $network->name,
-                $network->dns_1,
-                $network->dns_1,
-                $network->dns_1,
-                $network->dns_1
+                $network->dhcpd_dns_1 ?? "",
+                $network->dhcpd_dns_2 ?? "",
+                $network->dhcpd_dns_3 ?? "",
+                $network->dhcpd_dns_4 ?? ""
             );
         }
     }
