@@ -44,11 +44,8 @@ class UnifiAutomations
                 $this->updateCloudflareFirewallGroups();
             })->hourly();
 
-            // Run verifyPiHoleStatus every 5 seconds
-            $this->scheduler->call(function () {
-                // Update the DNS records
-                $this->verifyPiHoleStatus();
-            })->everyMinute();
+            // Update the DNS records
+            $this->verifyPiHoleStatus();
 
             echo "success";
         }catch (Exception $e) {
