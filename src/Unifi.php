@@ -142,7 +142,7 @@ class Unifi
         string|null $dns4
     ): void
     {
-        $data = $this->unifiConnection->set_networksettings_base(
+        $this->unifiConnection->set_networksettings_base(
             $networkId,
             [
                 'dhcpd_dns_1' => $dns1 ?? "",
@@ -151,7 +151,6 @@ class Unifi
                 'dhcpd_dns_4' => $dns4 ?? ""
             ]
         );
-        echo json_encode($data, JSON_PRETTY_PRINT) . PHP_EOL;
     }
 
 }
