@@ -5,7 +5,6 @@ namespace Fabian\CloudflareUnifiIpImport;
 use Dotenv\Dotenv;
 use Exception;
 use Fabian\CloudflareUnifiIpImport\enums\FirewallGroupType;
-use GO\Scheduler;
 
 class UnifiAutomations
 {
@@ -36,16 +35,16 @@ class UnifiAutomations
             $this->unifi = new Unifi();
             $this->piHole = new PiHole();
 
-            $this->scheduler->run();
-
-            // Schedule the tasks
-            $this->scheduler->call(function () {
-                // Update the Cloudflare firewall groups
+            // Update the Cloudflare firewall groups
+            $this->scheduler->registerTask('updateCloudflareFirewallGroups', 3600, function () {
                 $this->updateCloudflareFirewallGroups();
-            })->hourly();
-
+            });
             // Update the DNS records
-            $this->verifyPiHoleStatus();
+            $this->scheduler->registerTask('verifyPiHoleStatus', 1, function () {
+                $this->verifyPiHoleStatus();
+            });
+
+            $this->scheduler->run();
 
             echo "success";
         }catch (Exception $e) {

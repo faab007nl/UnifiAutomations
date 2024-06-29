@@ -15,8 +15,8 @@ class Unifi
 
     private Client $unifiConnection;
 
-    private array $firewallGroups;
-    private array $networks;
+    private array $firewallGroups = [];
+    private array $networks = [];
 
     /**
      * @throws Exception
