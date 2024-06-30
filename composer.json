@@ -14,6 +14,7 @@
     "require": {
         "ext-curl": "*",
         "art-of-wifi/unifi-api-client": "^1.1",
-        "vlucas/phpdotenv": "^5.6"
+        "vlucas/phpdotenv": "^5.6",
+        "phpmailer/phpmailer": "^6.9"
     }
 }

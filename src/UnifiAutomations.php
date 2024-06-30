@@ -10,6 +10,7 @@ class UnifiAutomations
 {
 
     private Scheduler $scheduler;
+    private Mailer $mailer;
     private CloudFlare $cloudflare;
     private Unifi $unifi;
     private PiHole $piHole;
@@ -23,12 +24,13 @@ class UnifiAutomations
         if (!file_exists(ROOT_DIR . '/.env')) {
             throw new Exception('Please create a .env file in the root directory.');
         }
+        // Load environment variables
+        $dotenv = Dotenv::createImmutable(ROOT_DIR);
+        $dotenv->load();
+
+        $this->mailer = new Mailer();
 
         try{
-            // Load environment variables
-            $dotenv = Dotenv::createImmutable(ROOT_DIR);
-            $dotenv->load();
-
             // Initialize the classes
             $this->scheduler = new Scheduler();
             $this->cloudflare = new CloudFlare();
@@ -49,6 +51,12 @@ class UnifiAutomations
             echo "success";
         }catch (Exception $e) {
             echo $e->getMessage();
+
+            // Send an email with the error message
+            $this->mailer->sendMail(
+                'Unifi Automations Error',
+                $e->getMessage()
+            );
         }
     }
 
