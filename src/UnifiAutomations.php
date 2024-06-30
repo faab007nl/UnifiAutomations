@@ -16,6 +16,7 @@ class UnifiAutomations
     private PiHole $piHole;
 
     /**
+     * @throws \PHPMailer\PHPMailer\Exception
      * @throws Exception
      */
     public function __construct()
@@ -48,7 +49,7 @@ class UnifiAutomations
 
             $this->scheduler->run();
 
-            echo "success";
+            echo "Success\n";
         }catch (Exception $e) {
             echo $e->getMessage();
 
@@ -61,6 +62,7 @@ class UnifiAutomations
                 'Unifi Automations Error',
                 $message
             );
+            echo "Email send with error message.\n";
         }
     }
 
