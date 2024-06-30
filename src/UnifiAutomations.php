@@ -53,9 +53,13 @@ class UnifiAutomations
             echo $e->getMessage();
 
             // Send an email with the error message
+            $message = $e->getMessage();
+            $message .= "\n\n" . $e->getFile() . ' on line ' . $e->getLine();
+            $message .= "\n\n" . $e->getTraceAsString();
+
             $this->mailer->sendMail(
                 'Unifi Automations Error',
-                $e->getMessage()
+                $message
             );
         }
     }
